@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rest.dbconnection.MyDbDetails;
+import com.rest.dbconnection.MyProducts;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,8 +25,8 @@ public class PaymentController {
 	private static final String AUTH_KEY = "secure";
 	private static final String SUCCESS_STATUS ="success";
 	private static final String ERR_STATUS ="error";
-	private static final int  CODE_SUCCESS = 100;
-	private static final int AUTH_FAILURE =  102;
+	private static final int  CODE_SUCCESS = 200;
+	private static final int AUTH_FAILURE =  401;
 	
 	@RequestMapping(value= "/pay", method=RequestMethod.POST)
 	public BaseResponse pay(@RequestParam(value="key") String key, @RequestBody PaymentRequest request){
@@ -60,15 +61,22 @@ public class PaymentController {
 			
 			//db call
 			MyDbDetails myDetails = new MyDbDetails();
-			myDetails.crud();
+			MyProducts myprod = new MyProducts();
+			myprod = myDetails.crud();
 			
 			response.setCode(CODE_SUCCESS);
 			response.setStatus(SUCCESS_STATUS);
+			response.setProductId(myprod.getProductId());
+			response.setProductName(myprod.getProductName());
+			response.setQuantity(myprod.getQuantity());
+			
 			
 		} else {
 			response.setCode(AUTH_FAILURE);
 			response.setStatus(ERR_STATUS);
-			
+			response.setProductId(0);
+			response.setProductName("Not a valid product");
+			response.setQuantity(0);
 		}
 		return response;
 	}
