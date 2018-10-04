@@ -9,46 +9,45 @@ package com.rest.resource;
  */
 public class PaymentRequest {
 	
-	private int userId;
-	private String itemId;
-	private double discount;
 	/**
-	 * @return the userId
+	 * @return the productId
 	 */
-	public int getUserId() {
-		return userId;
+	public int getProductId() {
+		return productId;
 	}
 	/**
-	 * @param userId the userId to set
+	 * @param productId the productId to set
 	 */
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 	/**
-	 * @return the itemId
+	 * @return the productName
 	 */
-	public String getItemId() {
-		return itemId;
+	public String getProductName() {
+		return productName;
 	}
 	/**
-	 * @param itemId the itemId to set
+	 * @param productName the productName to set
 	 */
-	public void setItemId(String itemId) {
-		this.itemId = itemId;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	/**
-	 * @return the discount
+	 * @return the quantity
 	 */
-	public double getDiscount() {
-		return discount;
+	public int getQuantity() {
+		return quantity;
 	}
 	/**
-	 * @param discount the discount to set
+	 * @param quantity the quantity to set
 	 */
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
-	
+	private int productId;
+	private String productName;
+	private int quantity;
 	
 
 }

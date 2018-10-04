@@ -22,21 +22,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/payment")
 public class PaymentController {
 	
-	private static final String AUTH_KEY = "secure";
+	private static final int PRODUCT_ID = 10;
 	private static final String SUCCESS_STATUS ="success";
 	private static final String ERR_STATUS ="error";
 	private static final int  CODE_SUCCESS = 200;
 	private static final int AUTH_FAILURE =  401;
 	
 	@RequestMapping(value= "/pay", method=RequestMethod.POST)
-	public BaseResponse pay(@RequestParam(value="key") String key, @RequestBody PaymentRequest request){
+	public BaseResponse pay(@RequestParam(value="id") int id, @RequestBody PaymentRequest request){
 		
 		BaseResponse response = new BaseResponse();
-		if(AUTH_KEY.equalsIgnoreCase(key)) {
+		if(PRODUCT_ID == id) {
 			
-			int userID = request.getUserId();
-			String itemId = request.getItemId();
-			double discount = request.getDiscount();
+			int productId = request.getProductId();
+			String productName = request.getProductName();
+			double quanity = request.getQuantity();
 			
 			response.setCode(CODE_SUCCESS);
 			response.setStatus(SUCCESS_STATUS);
@@ -50,26 +50,30 @@ public class PaymentController {
 	}
 	
 	@RequestMapping(value = "/payback", method=RequestMethod.GET)
-	public BaseResponse payback(@RequestParam(value="key") String key){
+	public BaseResponse payback(@RequestParam(value="id") int id){
 		
 		BaseResponse response = new BaseResponse();
-		if(AUTH_KEY.equalsIgnoreCase(key)) {
-			
-			int userID = 1;
-			String itemId = "Pencil";
-			double discount = 10.5;
-			
+		if(id>0) {
+					
 			//db call
 			MyDbDetails myDetails = new MyDbDetails();
 			MyProducts myprod = new MyProducts();
-			myprod = myDetails.crud();
+			myprod = myDetails.crud(id);
 			
+			if(myprod!=null) {
 			response.setCode(CODE_SUCCESS);
 			response.setStatus(SUCCESS_STATUS);
 			response.setProductId(myprod.getProductId());
 			response.setProductName(myprod.getProductName());
 			response.setQuantity(myprod.getQuantity());
-			
+			}
+			else {
+				response.setCode(201);
+				response.setStatus("not found");
+				response.setProductId(id);
+				response.setProductName("No Item available in db");
+				response.setQuantity(0);	
+			}
 			
 		} else {
 			response.setCode(AUTH_FAILURE);

@@ -23,14 +23,14 @@ public class MyDbDetails {
 	
 	private static int IdfromDb=145;
 	
-	public MyProducts crud() {
+	public MyProducts crud(int id) {
 		
 		MyProducts myprod = new MyProducts();
 		@SuppressWarnings("deprecation")
 		SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
 		Session session = sessionFactory.openSession();
-		create(session);
-		myprod = read(session);
+		//create(session);
+		myprod = read(session, id);
 		
 		/*Configuration cfg = new Configuration().addResource("hibernate.cfg.xml").configure();
 	     StandardServiceRegistryBuilder ssrb = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
@@ -51,9 +51,10 @@ public class MyDbDetails {
 				
 	}
 	
-	private MyProducts read(Session session) {
+	private MyProducts read(Session session, int id) {
 		System.out.println("read: ");
-		Query q = session.createQuery("select _prods from MyProducts _prods");
+		Query q = session.createQuery("select prods from MyProducts prods where prods.id= :id");
+		q.setParameter("id", id);
 		
 		List<MyProducts> produts = q.list();
 		System.out.println("MyProduct details: ");
@@ -61,11 +62,13 @@ public class MyDbDetails {
 		   System.out.println("Reading product records...");
 		   System.out.printf("%-30.30s  %-30.30s  %-30.30s%n", "Id", "Name","Quantity");
 		   MyProducts prodReturn = new MyProducts();
+		   if(produts!= null && produts.size()>0 ) {
 		   for (MyProducts p : produts) {
 			   System.out.printf("%-30.30s  %-30.30s  %-30.30s%n", p.getProductId(), p.getProductName(),p.getQuantity());
 			   		IdfromDb = p.getProductId()+1;
 			   		prodReturn = p;
 		           }		
+		   }
 		   return prodReturn;
 	}
 	
