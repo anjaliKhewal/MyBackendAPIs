@@ -3,6 +3,7 @@
  */
 package com.rest.resource;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,9 +28,11 @@ public class ProductController {
 	private static final String ERR_STATUS ="error";
 	private static final int  CODE_SUCCESS = 200;
 	private static final int AUTH_FAILURE =  401;
+	private static final String APPLICATION_JSON_VALUE 	= "application/json";
 	
-	@RequestMapping(value= "/updateproduct", method=RequestMethod.POST)
-	public BaseResponse pay(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
+	@RequestMapping(value= "/updateproduct", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, 
+			produces = {APPLICATION_JSON_VALUE})
+	public BaseResponse updateproduct(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
 		
 		BaseResponse response = new BaseResponse();
 		if(PRODUCT_ID == id) {
@@ -49,8 +52,8 @@ public class ProductController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/getproduct", method=RequestMethod.GET)
-	public BaseResponse payback(@RequestParam(value="id") int id){
+	@RequestMapping(value = "/getproduct", method=RequestMethod.GET, produces= {MediaType.APPLICATION_JSON_VALUE})
+	public BaseResponse getproduct(@RequestParam(value="id") int id){
 		
 		BaseResponse response = new BaseResponse();
 		if(id>0) {
