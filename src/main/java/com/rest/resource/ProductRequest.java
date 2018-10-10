@@ -7,7 +7,7 @@ package com.rest.resource;
  * @author Anjali
  *
  */
-public class PaymentRequest {
+public class ProductRequest {
 	
 	/**
 	 * @return the productId

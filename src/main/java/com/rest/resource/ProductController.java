@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 
 @RestController
-@RequestMapping("/payment")
-public class PaymentController {
+@RequestMapping("/products")
+public class ProductController {
 	
 	private static final int PRODUCT_ID = 10;
 	private static final String SUCCESS_STATUS ="success";
@@ -28,8 +28,8 @@ public class PaymentController {
 	private static final int  CODE_SUCCESS = 200;
 	private static final int AUTH_FAILURE =  401;
 	
-	@RequestMapping(value= "/pay", method=RequestMethod.POST)
-	public BaseResponse pay(@RequestParam(value="id") int id, @RequestBody PaymentRequest request){
+	@RequestMapping(value= "/updateproduct", method=RequestMethod.POST)
+	public BaseResponse pay(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
 		
 		BaseResponse response = new BaseResponse();
 		if(PRODUCT_ID == id) {
@@ -49,7 +49,7 @@ public class PaymentController {
 		return response;
 	}
 	
-	@RequestMapping(value = "/payback", method=RequestMethod.GET)
+	@RequestMapping(value = "/getproduct", method=RequestMethod.GET)
 	public BaseResponse payback(@RequestParam(value="id") int id){
 		
 		BaseResponse response = new BaseResponse();
