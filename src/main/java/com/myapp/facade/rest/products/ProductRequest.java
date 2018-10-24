@@ -1,37 +1,17 @@
 /**
  * 
  */
-package com.rest.dbconnection;
-
-import java.io.Serializable;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
+package com.myapp.facade.rest.products;
 
 /**
  * @author Anjali
  *
  */
-@Entity
-public class MyProducts implements Serializable{
+public class ProductRequest {
 	
-	private String productName;
-	@Id
 	private int productId;
+	private String productName;
 	private int quantity;
-	/**
-	 * @return the productName
-	 */
-	public String getProductName() {
-		return productName;
-	}
-	/**
-	 * @param productName the productName to set
-	 */
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
 	/**
 	 * @return the productId
 	 */
@@ -43,6 +23,18 @@ public class MyProducts implements Serializable{
 	 */
 	public void setProductId(int productId) {
 		this.productId = productId;
+	}
+	/**
+	 * @return the productName
+	 */
+	public String getProductName() {
+		return productName;
+	}
+	/**
+	 * @param productName the productName to set
+	 */
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	/**
 	 * @return the quantity

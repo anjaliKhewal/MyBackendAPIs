@@ -13,7 +13,7 @@
  		<property name="show_sql">true</property>
  		<property name="hibernate.hbm2ddl.auto">update</property>
  	 		
- 		<mapping class="com.rest.dbconnection.MyProducts"></mapping>
+ 		<mapping class="com.myapp.service.products.MyProducts"></mapping>
  		 		
  	</session-factory>
  	</hibernate-configuration>

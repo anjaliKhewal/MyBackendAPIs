@@ -1,27 +1,27 @@
 /**
  * 
  */
-package com.rest.resource;
+package com.myapp.facade.rest.products;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.rest.dbconnection.MyDbDetails;
-import com.rest.dbconnection.MyProducts;
+import com.myapp.manager.products.ProductManager;
+import com.myapp.service.products.MyProducts;
 
-import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * @author Anjali
  *
  */
-
 @RestController
 @RequestMapping("/products")
-public class ProductController {
+public class ProductControllerImpl {
 	
 	private static final int PRODUCT_ID = 10;
 	private static final String SUCCESS_STATUS ="success";
@@ -30,11 +30,14 @@ public class ProductController {
 	private static final int AUTH_FAILURE =  401;
 	private static final String APPLICATION_JSON_VALUE 	= "application/json";
 	
+	@Autowired
+	ProductManager productManager;
+	
 	@RequestMapping(value= "/updateproduct", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, 
 			produces = {APPLICATION_JSON_VALUE})
-	public BaseResponse updateproduct(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
+	public ProductResponseData updateproduct(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
 		
-		BaseResponse response = new BaseResponse();
+		ProductResponseData response = new ProductResponseData();
 		if(PRODUCT_ID == id) {
 			
 			int productId = request.getProductId();
@@ -53,15 +56,15 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/getproduct", method=RequestMethod.GET, produces= {MediaType.APPLICATION_JSON_VALUE})
-	public BaseResponse getproduct(@RequestParam(value="id") int id){
+	public ProductResponseData getproduct(@RequestParam(value="id") int id){
 		
-		BaseResponse response = new BaseResponse();
+		ProductResponseData response = new ProductResponseData();
 		if(id>0) {
 					
 			//db call
-			MyDbDetails myDetails = new MyDbDetails();
-			MyProducts myprod = new MyProducts();
-			myprod = myDetails.crud(id);
+			//MyDbDetails myDetails = new MyDbDetails();
+			//MyProducts myprod = new MyProducts();
+			MyProducts myprod = productManager.getMyProducts(id);
 			
 			if(myprod!=null) {
 			response.setCode(CODE_SUCCESS);
@@ -87,6 +90,4 @@ public class ProductController {
 		}
 		return response;
 	}
-	
-
 }

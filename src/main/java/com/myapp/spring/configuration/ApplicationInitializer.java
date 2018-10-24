@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rest.configuration;
+package com.myapp.spring.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

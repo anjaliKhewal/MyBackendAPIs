@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.rest.dbconnection;
+package com.myapp.service.dbconnection;
 
 import java.util.List;
 
@@ -12,13 +12,16 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AnnotationConfiguration;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.stereotype.Component;
+
+import com.myapp.service.products.MyProducts;
 
 
 /**
  * @author Anjali
  *
  */
-
+@Component
 public class MyDbDetails {
 	
 	private static int IdfromDb=145;
