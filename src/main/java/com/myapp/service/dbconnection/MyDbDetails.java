@@ -26,6 +26,12 @@ public class MyDbDetails {
 	
 	private static int IdfromDb=145;
 	
+	public Session createSession() {
+		SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		return session;
+	}
+	
 	public MyProducts crud(int id) {
 		
 		MyProducts myprod = new MyProducts();

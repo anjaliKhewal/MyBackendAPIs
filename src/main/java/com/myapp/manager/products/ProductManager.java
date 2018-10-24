@@ -3,6 +3,7 @@
  */
 package com.myapp.manager.products;
 
+import com.myapp.facade.rest.products.ProductRequest;
 import com.myapp.service.products.MyProducts;
 
 /**
@@ -12,5 +13,7 @@ import com.myapp.service.products.MyProducts;
 public interface ProductManager {
 	
 	public MyProducts getMyProducts(int id);
+	
+	public int createProduct(ProductRequest myproducts);
 
 }

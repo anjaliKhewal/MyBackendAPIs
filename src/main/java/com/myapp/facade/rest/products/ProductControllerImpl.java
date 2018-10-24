@@ -23,7 +23,7 @@ import com.myapp.service.products.MyProducts;
 @RequestMapping("/products")
 public class ProductControllerImpl {
 	
-	private static final int PRODUCT_ID = 10;
+	
 	private static final String SUCCESS_STATUS ="success";
 	private static final String ERR_STATUS ="error";
 	private static final int  CODE_SUCCESS = 200;
@@ -33,19 +33,21 @@ public class ProductControllerImpl {
 	@Autowired
 	ProductManager productManager;
 	
-	@RequestMapping(value= "/updateproduct", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, 
+	@RequestMapping(value= "/createproduct", method=RequestMethod.POST, consumes= MediaType.APPLICATION_JSON_VALUE, 
 			produces = {APPLICATION_JSON_VALUE})
-	public ProductResponseData updateproduct(@RequestParam(value="id") int id, @RequestBody ProductRequest request){
+	public ProductResponseData createproduct(@RequestBody ProductRequest request){
 		
 		ProductResponseData response = new ProductResponseData();
-		if(PRODUCT_ID == id) {
-			
-			int productId = request.getProductId();
-			String productName = request.getProductName();
-			double quanity = request.getQuantity();
+		
+		int respose = productManager.createProduct(request);
+		
+		if(respose == 0) {
 			
 			response.setCode(CODE_SUCCESS);
-			response.setStatus(SUCCESS_STATUS);
+			response.setStatus("product created in db successfully");
+			response.setProductId(request.getProductId());
+			response.setProductName(request.getProductName());
+			response.setQuantity(request.getQuantity());
 			
 		} else {
 			response.setCode(AUTH_FAILURE);

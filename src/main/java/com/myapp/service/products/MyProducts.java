@@ -27,7 +27,7 @@ public class MyProducts implements Serializable{
 	private String productName;
 	
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
 	private int productId;
 	private int quantity;
 	/**
