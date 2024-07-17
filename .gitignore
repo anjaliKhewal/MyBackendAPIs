@@ -1,8 +1,16 @@
 # Eclipse
+<<<<<<< HEAD
+*.class
+=======
+>>>>>>> 02aa719ca647bc7f25f49e4c07f97f2b191c294f
 .classpath
 .project
 .settings/
 
 # Maven
 log/
+<<<<<<< HEAD
+target/	
+=======
 target/
+>>>>>>> 02aa719ca647bc7f25f49e4c07f97f2b191c294f
